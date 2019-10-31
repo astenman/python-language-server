@@ -101,7 +101,7 @@ namespace Microsoft.Python.LanguageServer.Implementation {
             }
         };
 
-        public Task<InitializeResult> InitializeAsync(InitializeParams @params, CancellationToken cancellationToken = default) {
+        public InitializeResult Initialize(InitializeParams @params) {
             _disposableBag.ThrowIfDisposed();
             _initParams = @params;
             _log = _services.GetService<ILogger>();
@@ -114,7 +114,7 @@ namespace Microsoft.Python.LanguageServer.Implementation {
             _log?.Log(TraceEventType.Information, Resources.LanguageServerVersion.FormatInvariant(Assembly.GetExecutingAssembly().GetName().Version));
             _log?.Log(TraceEventType.Information, Resources.WorkspaceRoot.FormatInvariant(Root));
 
-            return Task.FromResult(GetInitializeResult());
+            return GetInitializeResult();
         }
 
         public async Task InitializedAsync(InitializedParams @params, CancellationToken cancellationToken = default, IReadOnlyList<string> userConfiguredPaths = null) {
